@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
+import org.lwjgl.glfw.GLFW;
 
 /**
  * Inventar-Vorschau.
@@ -23,6 +24,12 @@ public final class PreviewController {
     private static boolean mouseOnLockedPanel;
 
     private PreviewController() {}
+
+    private static boolean isShiftDown(MinecraftClient mc) {
+        long handle = mc.getWindow().getHandle();
+        return GLFW.glfwGetKey(handle, GLFW.GLFW_KEY_LEFT_SHIFT) == GLFW.GLFW_PRESS
+                || GLFW.glfwGetKey(handle, GLFW.GLFW_KEY_RIGHT_SHIFT) == GLFW.GLFW_PRESS;
+    }
 
     public static void reset() {
         locked = false;
@@ -51,7 +58,7 @@ public final class PreviewController {
         MinecraftClient mc = MinecraftClient.getInstance();
         TextRenderer tr = mc.textRenderer;
         HandledScreenAccessor acc = (HandledScreenAccessor) screen;
-        boolean shift = Screen.hasShiftDown();
+        boolean shift = isShiftDown(mc);
         Slot hovered = hoveredShulkerSlot(screen);
 
         // Sperre prüfen
