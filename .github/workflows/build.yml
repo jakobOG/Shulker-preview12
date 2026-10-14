@@ -8,9 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: shulker-preview1
     steps:
       - uses: actions/checkout@v4
 
@@ -19,14 +16,20 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: gradlew ausführbar machen
-        run: chmod +x gradlew
+      - name: Projektordner finden
+        run: |
+          DIR=$(dirname "$(find . -name gradlew -not -path './.git/*' | head -n 1)")
+          echo "Projektordner: $DIR"
+          echo "PROJECT_DIR=$DIR" >> $GITHUB_ENV
 
       - name: Build
-        run: ./gradlew build --stacktrace
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          chmod +x gradlew
+          ./gradlew build --stacktrace
 
       - name: JAR hochladen
         uses: actions/upload-artifact@v4
         with:
           name: shulker-preview-jar
-          path: shulker-preview1/build/libs/*.jar
+          path: ${{ env.PROJECT_DIR }}/build/libs/*.jar
