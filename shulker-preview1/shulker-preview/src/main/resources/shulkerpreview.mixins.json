@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.shulkerpreview.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "HandledScreenAccessor",
+    "HandledScreenMixin",
+    "LootableContainerBlockEntityAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

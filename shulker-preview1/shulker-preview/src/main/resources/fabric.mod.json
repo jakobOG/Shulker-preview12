@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "shulkerpreview",
+  "version": "${version}",
+  "name": "Shulker Preview",
+  "description": "Zeigt den Inhalt von Shulkerboxen als Vanilla-artige Inventar-Vorschau (Inventar und Spielwelt). Shift = Detail-Tooltips.",
+  "authors": ["Shulker Preview"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["dev.shulkerpreview.ShulkerPreviewMod"]
+  },
+  "mixins": ["shulkerpreview.mixins.json"],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
